@@ -63,11 +63,11 @@ public class LoginScreen extends FlexLayout {
         loginForm.setWidth("310px");
 
         loginForm.addFormItem(username = new TextField(), "Username");
-        username.setWidth("15em");
+        username.setWidth("17em");
         username.setValue("admin");
         loginForm.add(new Html("<br/>"));
-        loginForm.addFormItem(password = new PasswordField(), "Password");
-        password.setWidth("15em");
+        loginForm.addFormItem(password = new PasswordField(), "Passwort");
+        password.setWidth("17em");
 
         HorizontalLayout buttons = new HorizontalLayout();
         loginForm.add(new Html("<br/>"));
@@ -78,8 +78,8 @@ public class LoginScreen extends FlexLayout {
         loginForm.getElement().addEventListener("keypress", event -> login()).setFilter("event.key == 'Enter'");
         login.getElement().getThemeList().add("success primary");
 
-        buttons.add(forgotPassword = new Button("Forgot password?"));
-        forgotPassword.addClickListener(event -> showNotification(new Notification("Hint: try anything")));
+        buttons.add(forgotPassword = new Button("Passwort vergessen?"));
+        forgotPassword.addClickListener(event -> showNotification(new Notification("Hint: Email an den Autor für Passwort-Reset!")));
         forgotPassword.getElement().getThemeList().add("tertiary");
 
         return loginForm;
@@ -91,7 +91,7 @@ public class LoginScreen extends FlexLayout {
 
         H1 loginInfoHeader = new H1("Login Information");
         Span loginInfoText = new Span(
-                "Log in as \"admin\" to have full access. Log in with any other username to have read-only access. For all users, any password is fine.");
+                "Das Projekt ist noch nicht öffentlich. Logins gibt es bei Interesse per Mail beim Autor.");
         loginInformation.add(loginInfoHeader);
         loginInformation.add(loginInfoText);
 
@@ -104,8 +104,8 @@ public class LoginScreen extends FlexLayout {
             if (accessControl.signIn(username.getValue(), password.getValue())) {
                 getUI().get().navigate("");
             } else {
-                showNotification(new Notification("Login failed. " +
-                        "Please check your username and password and try again."));
+                showNotification(new Notification("Login fehlgeschlagen. " +
+                        "Bitte prüfe deinen Usernamen und das Passwort und versuche es nochmal."));
                 username.focus();
             }
         } finally {
@@ -116,7 +116,7 @@ public class LoginScreen extends FlexLayout {
     private void showNotification(Notification notification) {
         // keep the notification visible a little while after moving the
         // mouse, or until clicked
-        notification.setDuration(2000);
+        notification.setDuration(5000);
         notification.open();
     }
 }

@@ -11,6 +11,12 @@ public class BasicAccessControl implements AccessControl {
     public boolean signIn(String username, String password) {
         if (username == null || username.isEmpty())
             return false;
+        
+        if (password == null || password.isEmpty())
+            return false;
+
+        if ("321".compareTo(password) != 0)
+        	return false;
 
         CurrentUser.set(username);
         return true;
